@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Blog</title>
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css">
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+      body {
+        background: #f8f9fa;
+      }
+
+      .signup-container {
+        background: rgba(255, 255, 255, 0.8);
+        border-radius: 10px;
+        padding: 40px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        max-width: 400px;
+        margin: 100px auto;
+      }
+
+      .signup-header {
+        text-align: center;
+        margin-bottom: 30px;
+      }
+
+      .signup-header h2 {
+        font-size: 30px;
+        margin: 0;
+      }
+
+      .alert {
+        margin-bottom: 20px;
+      }
+
+      .form-group label {
+        font-weight: bold;
+      }
+
+      .btn-custom {
+        background-color: #007bff;
+        color: white;
+      }
+
+      .btn-custom:hover {
+        background-color: #0056b3;
+        color: white;
+      }
+
+      .footer-below {
+        background-color: #212529;
+        color: #fff;
+        padding: 20px 0;
+      }
+    </style>
+  </head>
+
+  <body id="page-top">
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+      <div class="container">
+        <a class="navbar-brand js-scroll-trigger" href="#">Blog SAAS</a>
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+          Menu
+          <i class="fa fa-bars"></i>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+              <% if user_signed_in? %>
+                <%= link_to 'Regresar a la página principal', root_path, class: 'nav-link js-scroll-trigger' %>
+              <% else %> 
+                <%= link_to 'Regresar a la página principal', root_path, class: 'nav-link js-scroll-trigger' %>
+              <% end %>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Sign Up Form -->
+    <div class="signup-container">
+      <div class="signup-header">
+        <h2>Sign Up</h2>
+      </div>
+
+      <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+        <% if resource.errors.any? %>
+          <div class="alert alert-danger">
+            <ul>
+              <% resource.errors.full_messages.each do |msg| %>
+                <li><%= msg %></li>
+              <% end %>
+            </ul>
+          </div>
+        <% end %>
+
+        <div class="form-group">
+          <%= f.label :email, class: 'form-label' %>
+          <%= f.email_field :email, autofocus: true, autocomplete: "email", class: 'form-control' %>
+        </div>
+
+        <div class="form-group">
+          <%= f.label :password, class: 'form-label' %>
+          <% if @minimum_password_length %>
+            <em>(<%= @minimum_password_length %> characters minimum)</em>
+          <% end %>
+          <%= f.password_field :password, autocomplete: "new-password", class: 'form-control' %>
+        </div>
+
+        <div class="form-group">
+          <%= f.label :password_confirmation, class: 'form-label' %>
+          <%= f.password_field :password_confirmation, autocomplete: "new-password", class: 'form-control' %>
+        </div>
+
+        <div class="form-group">
+          <%= f.submit "Sign Up", class: 'btn btn-custom btn-block' %>
+        </div>
+      <% end %>
+
+      <div class="text-center mt-3">
+        <%= link_to 'Already have an account? Sign in', new_user_session_path, class: 'btn btn-link' %>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer-below text-center">
+      <div class="container">
+        <div class="col-lg-12">
+          <h3>Ingeniería en Telemática</h3>
+          <ul class="list-inline">
+            <li class="list-inline-item">
+              <a class="btn-social btn-outline" href="#">
+                <i class="fa fa-fw fa-facebook"></i>
+              </a>
+            </li>
+            <li class="list-inline-item">
+              <a class="btn-social btn-outline" href="#">
+                <i class="fa fa-fw fa-twitter"></i>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Scroll to Top Button (Only visible on small and extra-small screen sizes) -->
+    <div class="scroll-top d-lg-none">
+      <a class="btn btn-primary js-scroll-trigger" href="javascript:void(0)">
+        <i class="fa fa-chevron-up"></i>
+      </a>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  </body>
+</html>

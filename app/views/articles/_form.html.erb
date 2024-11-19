@@ -11,36 +11,47 @@
     <style>
         body {
             background-color: #36C5AD; /* Color de fondo similar al de la imagen */
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh; /* Hace que el cuerpo ocupe al menos toda la altura de la ventana */
         }
+
         .container {
             background-color: #ffffff; /* Fondo blanco para el formulario */
             padding: 30px;
             border-radius: 8px;
             box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
             max-width: 600px;
+            margin-top: 30px;
+            flex: 1; /* Hace que el contenedor ocupe el espacio restante */
         }
+
         .btn-primary {
             background-color: #007bff;
             border-color: #007bff;
         }
+
         .btn-secondary {
             background-color: #6c757d;
             border-color: #6c757d;
         }
+
         .header {
             background-color: #324b66; /* Color de la cabecera en la imagen */
             color: #ffffff;
             padding: 10px 0;
         }
+
         .header h1 {
             font-family: 'Montserrat', sans-serif;
             font-weight: bold;
         }
+
         .footer {
             background-color: #324b66; /* Mismo color que la cabecera */
             color: #ffffff;
             padding: 10px 0;
-            margin-top: 100px; /* Ajuste para mover la barra hacia abajo */
+            margin-top: auto; /* Hace que el footer siempre se posicione al final */
             position: relative;
         }
     </style>

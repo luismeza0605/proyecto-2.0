@@ -11,14 +11,18 @@
 
     <style>
         body {
-            background-color: #36C5AD; /* Color de fondo similar al de la imagen */
+            background-color: #36C5AD;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
         }
         .container {
-            background-color: #ffffff; /* Fondo blanco para el formulario */
+            background-color: #ffffff;
             padding: 30px;
             border-radius: 8px;
             box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
             max-width: 600px;
+            margin-bottom: 20px; /* Añadido para mayor separación */
         }
         .btn-primary {
             background-color: #007bff;
@@ -29,7 +33,7 @@
             border-color: #6c757d;
         }
         .header {
-            background-color: #324b66; /* Color de la cabecera en la imagen */
+            background-color: #324b66;
             color: #ffffff;
             padding: 10px 0;
         }
@@ -38,11 +42,11 @@
             font-weight: bold;
         }
         .footer {
-            background-color: #324b66; /* Mismo color que la cabecera */
+            background-color: #324b66;
             color: #ffffff;
             padding: 10px 0;
-            margin-top: 100px; /* Ajuste para mover la barra hacia abajo */
-            position: relative;
+            margin-top: auto; /* Esto asegura que el footer se quede en la parte inferior */
+            text-align: center;
         }
     </style>
 </head>
@@ -72,11 +76,6 @@
     <!-- Formulario -->
     <%= form_for([@article, @comment || @article.comments.build]) do |f| %>
         <div class="form-group">
-            <%= f.label :commenter, class: "font-weight-bold" %>
-            <%= f.text_field :commenter, class: "form-control" %>
-        </div>
-
-        <div class="form-group">
             <%= f.label :body, class: "font-weight-bold" %>
             <%= f.text_area :body, class: "form-control", rows: 5 %>
         </div>
@@ -89,7 +88,7 @@
 </div>
 
 <!-- Pie de página -->
-<div class="footer text-center">
+<div class="footer">
     <p>INGENIERÍA EN TELEMATICA</p>
 </div>
 

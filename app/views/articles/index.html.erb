@@ -69,6 +69,18 @@
             color: white;
             margin: 0 10px;
         }
+
+        /* Estilo para el nombre del usuario */
+        .user-name {
+            font-size: 18px;
+            font-weight: bold;
+            color: #f39c12;
+        }
+
+        /* Resaltar nombre en la navbar */
+        .navbar-brand {
+            font-weight: bold;
+        }
     </style>
 </head>
 
@@ -77,7 +89,7 @@
 <!-- Navbar -->
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container">
-        <%= link_to 'Ir a la página principal', root_path, class: 'navbar-brand' %>
+        <%= button_to 'Ir a la página principal', destroy_user_session_path, method: :delete, class: 'navbar-brand btn btn-link text-white', data: { turbolinks: false } %>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -92,6 +104,11 @@
 <!-- Header -->
 <div class="header">
     <h1>LISTING ARTICLES</h1>
+    <% if user_signed_in? %> <!-- Verifica si el usuario está autenticado -->
+        <p class="user-name">Welcome, <%= current_user.name.present? ? current_user.name : current_user.email %>!</p> <!-- Muestra el nombre si está disponible, si no, el correo -->
+    <% else %>
+        <p class="user-name">Welcome, Guest!</p> <!-- Muestra un mensaje si no hay usuario autenticado -->
+    <% end %>
 </div>
 
 <!-- Main Content Section -->
@@ -102,6 +119,7 @@
                 <tr>
                     <th>Title</th>
                     <th>Text</th>
+                    <th>Created By</th> <!-- Nueva columna para mostrar al usuario que creó el artículo -->
                     <th colspan="3">Actions</th>
                 </tr>
             </thead>
@@ -110,11 +128,17 @@
                 <tr>
                     <td><%= article.title %></td>
                     <td><%= article.text %></td>
+                    <td><%= article.user.name.present? ? article.user.name : article.user.email %></td> <!-- Muestra el nombre o email del creador -->
                     <td><%= link_to 'Show', article_path(article), class: 'btn btn-info btn-sm' %></td>
-                    <td><%= link_to 'Edit', edit_article_path(article), class: 'btn btn-warning btn-sm' %></td>
-                    <td>
-                        <%= button_to 'Destroy', article_path(article), method: :delete, data: { confirm: 'Are you sure you want to delete this article and all its comments?' }, class: 'btn btn-danger' %>
-                    </td>
+                    
+                    <% if article.user == current_user %> <!-- Verifica si el usuario actual es el propietario del artículo -->
+                        <td><%= link_to 'Edit', edit_article_path(article), class: 'btn btn-warning btn-sm' %></td>
+                        <td>
+                            <%= button_to 'Destroy', article_path(article), method: :delete, data: { confirm: 'Are you sure you want to delete this article and all its comments?' }, class: 'btn btn-danger' %>
+                        </td>
+                    <% else %>
+                        <td colspan="2" class="text-muted">You don't have permission</td>
+                    <% end %>
                 </tr>
                 <% end %>
             </tbody>

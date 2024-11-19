@@ -1,4 +1,6 @@
 class ArticlesController < ApplicationController
+  before_action :authenticate_user!, except: [:index, :show]  # Esto asegurará que el acceso público solo sea para index y show
+
   def new 
     @article = Article.new
   end
@@ -15,8 +17,6 @@ class ArticlesController < ApplicationController
     @article = Article.find(params[:id])
   end
 
-  
-
   def update
     @article = Article.find(params[:id])
     if @article.update(article_params)
@@ -27,9 +27,9 @@ class ArticlesController < ApplicationController
   end
 
   def create
-    @article = Article.new(article_params)
+    @article = current_user.articles.build(article_params)  # Cambiado para asociar el artículo con el usuario actual
     if @article.save
-      redirect_to @article
+      redirect_to @article, notice: 'Article was successfully created.'
     else
       render 'new'
     end
@@ -45,5 +45,4 @@ class ArticlesController < ApplicationController
   def article_params
     params.require(:article).permit(:title, :text)
   end
-
 end
